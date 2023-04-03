@@ -1,3 +1,10 @@
+h1 {
+  font-family: "Roboto", sans-serif;
+  text-align: left;
+  font-size: 3rem;
+  color: #000;
+  margin: 0.25em;
+}
 main {
   height: 100vh;
   background: #fff;
@@ -24,13 +31,32 @@ aside {
   margin: 0.25em;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
+}
+
 .card {
+  text-decoration-color: #fff;
+  background-color: grey;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1em;
+}
+
+#today {
+  background-color: darkgrey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
 }
 
 #searched {

@@ -1,11 +1,10 @@
 let apiUrl = "https://api.openweathermap.org/data/2.5/forecast";
 let apiKey = "eceeec2fb91796f6d65128e7d90aad46";
 let history = [];
-
+// function to store the search history in local storage
 function storeText() {
   let formText = $("#city").val();
   localStorage.setItem(formText, formText);
-  console.log(history);
   $("#searched").append(
     "<button class='button2 btn btn-secondary col-12' id='$('#city').val()'>" +
       formText +
@@ -13,7 +12,7 @@ function storeText() {
   );
 }
 
-// function to call to the url
+// function to call to the url and append the current weather and 5 day forecast
 function getWeather(city) {
   let url = `${apiUrl}?q=${city}&units=imperial&appid=${apiKey}`;
   // fetch from the open weather api
@@ -26,7 +25,6 @@ function getWeather(city) {
     // append current weather to the page
     .then((data) => {
       let iconCode = data.list[0].weather[0].icon;
-      console.log(iconCode);
       var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
       let icon = "<img src=" + iconUrl + ">";
       $("#today").append(
@@ -61,10 +59,8 @@ function getWeather(city) {
       //   for loop to append 5 day forecast
       for (i = 0; i < data.list.length; i += 8) {
         let iconCode = data.list[i].weather[0].icon;
-        console.log(iconCode);
         var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
         let icon = "<img src=" + iconUrl + ">";
-        console.log(iconUrl);
         $("#fiveday").append(
           "<div class = 'card mb-3 col-2'>" +
             "<h5>" +
@@ -89,8 +85,6 @@ function getWeather(city) {
             "</div>"
         );
       }
-      console.log($("#city").val());
-      console.log(data.list[0]);
     });
 }
 // event listener for the search button
@@ -103,14 +97,8 @@ $("#form").on("submit", function (event) {
   history.push($("#city").val());
   storeText();
 });
-
-// $("#searched").on("click", function (event) {
-//   event.preventDefault;
-//   console.log(this);
-// });
-
+// event listener for the history buttons
 $(document).on("click", ".button2", function () {
-  console.log(this.childNodes[0].data);
   $("#city").val(this.childNodes[0].data);
   getWeather(this.childNodes[0].data);
 });
